@@ -81,14 +81,15 @@ public class MainActivity extends Activity implements NewsFeedFragment.OnFragmen
         navDrawerItems = new ArrayList<NavDrawerItem>();
 
         // adding nav drawer items to array
-        // Home
+        // News Feed
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[0], navMenuIcons.getResourceId(0, -1)));
         // Find People
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[1], navMenuIcons.getResourceId(1, -1)));
         // Photos
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[2], navMenuIcons.getResourceId(2, -1)));
-        // Communities, Will add a counter here
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[3], navMenuIcons.getResourceId(3, -1), true, "22"));
+        // Community
+        navDrawerItems.add(new NavDrawerItem(navMenuTitles[3], navMenuIcons.getResourceId(3, -1)));
+        //navDrawerItems.add(new NavDrawerItem(navMenuTitles[3], navMenuIcons.getResourceId(3, -1), true, "22"));
         // Pages
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[4], navMenuIcons.getResourceId(4, -1)));
         // What's hot, We  will add a counter here
@@ -105,9 +106,7 @@ public class MainActivity extends Activity implements NewsFeedFragment.OnFragmen
                 navDrawerItems);
         mDrawerList.setAdapter(adapter);
 
-        // enabling action bar app icon and behaving it as toggle button
-        getActionBar().setDisplayHomeAsUpEnabled(true);
-        getActionBar().setHomeButtonEnabled(true);
+
 
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
                 R.drawable.ic_drawer, //nav menu toggle icon
@@ -126,7 +125,11 @@ public class MainActivity extends Activity implements NewsFeedFragment.OnFragmen
                 invalidateOptionsMenu();
             }
         };
+
         mDrawerLayout.setDrawerListener(mDrawerToggle);
+        // enabling action bar app icon and behaving it as toggle button
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+        getActionBar().setHomeButtonEnabled(true);
 
         if (savedInstanceState == null) {
             // on first time display view for first nav item
@@ -194,11 +197,27 @@ public class MainActivity extends Activity implements NewsFeedFragment.OnFragmen
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
+        // toggle nav drawer on selecting action bar app icon/title
+        if (mDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+
         int id = item.getItemId();
         if (id == R.id.action_settings) {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    /***
+     * Called when invalidateOptionsMenu() is triggered
+     */
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        // if nav drawer is opened, hide the action items
+        boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
+        menu.findItem(R.id.action_settings).setVisible(!drawerOpen);
+        return super.onPrepareOptionsMenu(menu);
     }
 
     @Override

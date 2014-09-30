@@ -8,12 +8,12 @@
 
     <!-- Nav Drawer Menu Items -->
     <string-array name="nav_drawer_items">
-        <item >Home</item>
-        <item >Find People</item>
+        <item >News Feed</item>
+        <item >Events</item>
         <item >Photos</item>
-        <item >Communities</item>
+        <item >Community</item>
         <item >Pages</item>
-        <item >What\'s Hot</item>
+        <item >What\'s New</item>
     </string-array>
 
     <!-- Nav Drawer List Item Icons -->
